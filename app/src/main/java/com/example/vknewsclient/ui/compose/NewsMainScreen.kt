@@ -10,12 +10,17 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.example.vknewsclient.domain.FeedPost
 import com.example.vknewsclient.navigation.NavigationItem
 
 @SuppressLint("UnusedMaterialScaffoldPaddingParameter")
 @Preview
 @Composable
 fun MainScreen() {
+
+    val feedPost = remember {
+        mutableStateOf(FeedPost())
+    }
 
     Scaffold(
         bottomBar = {
@@ -46,7 +51,23 @@ fun MainScreen() {
 
         }
     ) {
-        PostCard(Modifier.padding(8.dp))
+        PostCard(
+            Modifier.padding(8.dp),
+            feedPost = feedPost.value,
+            onStatisticsItemClickListener = { newItem ->
+                val oldStatistics = feedPost.value.statistics
+                val newStatistics = oldStatistics.toMutableList().apply {
+                    replaceAll { oldItem ->
+                        if (oldItem.type == newItem.type) {
+                            oldItem.copy(count = oldItem.count + 1)
+                        } else {
+                            oldItem
+                        }
+                    }
+                }
+                feedPost.value = feedPost.value.copy(statistics = newStatistics)
+            }
+        )
     }
 }
 

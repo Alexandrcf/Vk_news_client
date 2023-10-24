@@ -1,4 +1,4 @@
-package com.example.vknewsclient.ui.theme
+package com.example.vknewsclient.ui.compose
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
@@ -27,10 +27,15 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.vknewsclient.R
+import com.example.vknewsclient.ui.theme.VkNewsClientTheme
 
 @Composable
-fun PostCard() {
-    Card {
+fun PostCard(
+    modifier: Modifier = Modifier,
+) {
+    Card(
+        modifier = modifier
+    ) {
         Column(
             Modifier.padding(8.dp)
         ) {
@@ -39,10 +44,11 @@ fun PostCard() {
                 modifier = Modifier
                     .height(8.dp)
             )
-            Text(text = "Some text sofdjugrujkdfnhwguqgdbjnm,cmniwuedfijiownfm")
+            Text(text = "Some text")
             Image(
                 modifier = Modifier
-                    .fillMaxWidth(),
+                    .fillMaxWidth()
+                    .height(200.dp),
                 painter = painterResource(R.drawable.post_comunity_thumbnail),
                 contentDescription = null,
                 contentScale = ContentScale.FillWidth
